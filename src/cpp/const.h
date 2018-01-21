@@ -1,6 +1,9 @@
 #ifndef CONST
 #define CONST
 
+// additional outputs
+#define DEBUG_MODE 1
+
 // ziarno do generowania danych poczatkowych
 #define SEED 5779
 // promien generowania danych poczatkowych

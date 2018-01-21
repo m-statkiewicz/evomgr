@@ -16,7 +16,7 @@ switch( MODEL )
 		return dynamic_model_symulation(p);
 			
 	case SIMPLE:
-		return p.getCoord(0)*p.getCoord(0)+(p.getCoord(1)-1)*(p.getCoord(1)-1);
+		return (p.getCoord(0)+1)*(p.getCoord(0)+1)+(p.getCoord(1)-1)*(p.getCoord(1)-1);
 	};
 };
 double model_veryfication(const Point p,const int data_ind, const std::string filename){

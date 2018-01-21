@@ -13,7 +13,6 @@
 
 int main (int argc, char **argv){
 
-	DBWrapper db;
 	Timer t0;
 	std::string start_time=t0.currentDateTime();
 	std::string log_file_name;
@@ -40,7 +39,7 @@ int main (int argc, char **argv){
 	model_veryfication(*r,1,m.name+start_time+".ver.log");
 	
 	log_file_name=m.name+start_time+".log";
-	db.insertHeader(start_time, "SA", MODEL, double param1, double param2, double param3, double param4, int population_size, int iterations, SEED, t.deltaToString(), std::string best_point, double eval);
+	//db.insertHeader(start_time, "SA", MODEL, double param1, double param2, double param3, double param4, int population_size, int iterations, SEED, t.deltaToString(), std::string best_point, double eval);
 	std::fstream log;
 	log.open( log_file_name.c_str(), std::ios::out );
 	log<<m;
@@ -49,6 +48,12 @@ int main (int argc, char **argv){
 	log<<"Best point:\n"<<*r<<".";
 	log.close();
 	
+	std::cout<<m;
+	std::cout<<"Random seed: "<<SEED<<".\n";
+	std::cout<<"Run time: "<<t.deltaToString()<<" s.\n";
+	std::cout<<"Best point:\n"<<*r<<".";
+	
+
 	delete r;
 	return 0;
 }

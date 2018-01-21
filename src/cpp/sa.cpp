@@ -1,7 +1,6 @@
 #include "sa.h"
 #include "timer.h"
 #include "point.h"
-#include "dbwrapper.h"
 
 #include <climits>
 #include <math.h>
@@ -23,7 +22,7 @@ Point Sa::operator () (const std::vector<Point*>& initialPoints) {
 	//std::fstream log;
 	//log.open( logfilename.c_str(), std::ios::out );
 	//log<<"wPop\tbPop\tbest\n";
-	DBWrapper db;
+	//	DBWrapper db;
 		
 	size=initialPoints.size();
 
@@ -86,7 +85,7 @@ Point Sa::operator () (const std::vector<Point*>& initialPoints) {
 			if (*worstPopPoint<*basePopulation[i])
 				worstPopPoint=basePopulation[i];
 		}
-		db.insertDetail(start_time, iter, bestPopPoint->getEval(), worstPopPoint->getEval(), bestPoint.getEval());
+		//db.insertDetail(start_time, iter, bestPopPoint->getEval(), worstPopPoint->getEval(), bestPoint.getEval());
 		//log<<worstPopPoint->getEval()<<"\t";
 		//log<<bestPopPoint->getEval()<<"\t";
 		//log<<bestPoint.getEval()<<"\n";
