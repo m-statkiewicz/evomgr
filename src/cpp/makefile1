@@ -1,0 +1,134 @@
+all: clean main_mls.o main_mpls.o main_pso.o main_fa.o main_sa.o main_de.o main_mls_omp.o main_mpls_omp.o main_pso_omp.o main_fa_omp.o main_sa_omp.o main_de_omp.o
+
+install:
+	mkdir ../target
+	mv *.out ../target
+
+clean:
+	rm -rf *.o 
+
+symulate.o: symulate.cpp symulate.h
+	g++ -c -g symulate.cpp -o symulate.o
+
+timer.o: timer.cpp 
+	g++ -c -g timer.cpp -o timer.o
+
+point.o: point.cpp point.h
+	g++ -c -g point.cpp -o point.o
+
+individual.o: individual.cpp individual.h
+	g++ -c -g individual.cpp -o individual.o
+
+firefly.o: firefly.cpp firefly.h
+	g++ -c -g firefly.cpp -o firefly.o
+
+particle.o: particle.cpp particle.h
+	g++ -c -g particle.cpp -o particle.o
+
+method.o: method.cpp method.h
+	g++ -c -g method.cpp -o method.o
+
+mipluslambdastrategy.o: mipluslambdastrategy.cpp mipluslambdastrategy.h
+	g++ -c -g mipluslambdastrategy.cpp -o mipluslambdastrategy.o
+
+milambdastrategy.o: milambdastrategy.cpp milambdastrategy.h
+	g++ -c -g milambdastrategy.cpp -o milambdastrategy.o
+
+pso.o: pso.cpp pso.h
+	g++ -c -g pso.cpp -o pso.o
+
+fa.o: fa.cpp fa.h
+	g++ -c -g fa.cpp -o fa.o
+
+sa.o: sa.cpp sa.h
+	g++ -c -g sa.cpp -o sa.o
+
+snm.o: snm.cpp snm.h
+	g++ -c -g snm.cpp -o snm.o
+
+de.o: de.cpp de.h
+	g++ -c -g de.cpp -o de.o
+
+main_mls.o: method.o point.o milambdastrategy.o individual.o timer.o symulate.o
+	g++ method.o point.o milambdastrategy.o individual.o timer.o symulate.o main_mls.cpp -o mls.out
+
+main_mpls.o: method.o point.o mipluslambdastrategy.o individual.o timer.o symulate.o
+	g++ method.o point.o mipluslambdastrategy.o individual.o timer.o symulate.o main_mpls.cpp -o mpls.out
+
+main_de.o: method.o point.o de.o timer.o symulate.o
+	g++ method.o point.o de.o timer.o symulate.o main_de.cpp -o de.out
+
+main_pso.o: method.o point.o pso.o particle.o timer.o symulate.o
+	g++ method.o point.o pso.o particle.o timer.o symulate.o main_pso.cpp -o pso.out
+
+main_fa.o: method.o point.o fa.o firefly.o timer.o symulate.o
+	g++ method.o point.o fa.o firefly.o timer.o symulate.o main_fa.cpp -o fa.out
+
+main_sa.o: method.o point.o sa.o timer.o symulate.o
+	g++ method.o point.o sa.o timer.o symulate.o main_sa.cpp -o sa.out
+
+main_snm.o: method.o point.o snm.o timer.o symulate.o
+	g++ method.o point.o snm.o timer.o symulate.o main_snm.cpp -o snm.out
+	
+symulate_omp.o: symulate.cpp symulate.h
+	g++ -fopenmp -c -g symulate.cpp -o symulate_omp.o
+
+timer_omp.o: timer.cpp 
+	g++ -fopenmp -c -g timer.cpp -o timer_omp.o
+
+point_omp.o: point.cpp point.h
+	g++ -fopenmp -c -g point.cpp -o point_omp.o
+
+individual_omp.o: individual.cpp individual.h
+	g++ -fopenmp -c -g individual.cpp -o individual_omp.o
+
+firefly_omp.o: firefly.cpp firefly.h
+	g++ -fopenmp -c -g firefly.cpp -o firefly_omp.o
+
+particle_omp.o: particle.cpp particle.h
+	g++ -fopenmp -c -g particle.cpp -o particle_omp.o
+
+method_omp.o: method.cpp method.h
+	g++ -fopenmp -c -g method.cpp -o method_omp.o
+
+mipluslambdastrategy_omp.o: mipluslambdastrategy.cpp mipluslambdastrategy.h
+	g++ -fopenmp -c -g mipluslambdastrategy.cpp -o mipluslambdastrategy_omp.o
+
+milambdastrategy_omp.o: milambdastrategy.cpp milambdastrategy.h
+	g++ -fopenmp -c -g milambdastrategy.cpp -o milambdastrategy_omp.o
+
+pso_omp.o: pso.cpp pso.h
+	g++ -fopenmp -c -g pso.cpp -o pso_omp.o
+
+fa_omp.o: fa.cpp fa.h
+	g++ -fopenmp -c -g fa.cpp -o fa_omp.o
+
+sa_omp.o: sa.cpp sa.h
+	g++ -fopenmp -c -g sa.cpp -o sa_omp.o
+
+snm_omp.o: snm.cpp snm.h
+	g++ -fopenmp -c -g snm.cpp -o snm_omp.o
+
+de_omp.o: de.cpp de.h
+	g++ -fopenmp -c -g de.cpp -o de_omp.o
+
+main_mls_omp.o: method_omp.o point_omp.o milambdastrategy_omp.o individual_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o milambdastrategy_omp.o individual_omp.o timer_omp.o symulate_omp.o main_mls.cpp -o mls_omp.out
+
+main_mpls_omp.o: method_omp.o point_omp.o mipluslambdastrategy_omp.o individual_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o mipluslambdastrategy_omp.o individual_omp.o timer_omp.o symulate_omp.o main_mpls.cpp -o mpls_omp.out
+
+main_de_omp.o: method_omp.o point_omp.o de_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o de_omp.o timer_omp.o symulate_omp.o main_de.cpp -o de_omp.out
+
+main_pso_omp.o: method_omp.o point_omp.o pso_omp.o particle_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o pso_omp.o particle_omp.o timer_omp.o symulate_omp.o main_pso.cpp -o pso_omp.out
+
+main_fa_omp.o: method_omp.o point_omp.o fa_omp.o firefly_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o fa_omp.o firefly_omp.o timer_omp.o symulate_omp.o main_fa.cpp -o fa_omp.out
+
+main_sa_omp.o: method_omp.o point_omp.o sa_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o sa_omp.o timer_omp.o symulate_omp.o main_sa.cpp -o sa_omp.out
+
+main_snm_omp.o: method_omp.o point_omp.o snm_omp.o timer_omp.o symulate_omp.o
+	g++ -fopenmp method_omp.o point_omp.o snm_omp.o timer_omp.o symulate_omp.o main_snm.cpp -o snm_omp.out
