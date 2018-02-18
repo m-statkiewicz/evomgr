@@ -14,12 +14,15 @@
 #include<sys/time.h>
 #include<unistd.h>
 
+#include"const.h"
+
+
 enum TimerExceptionMsg {
 	WRONG_STATE, UNRECOGNIZED
 };
 
 class TimerException: public std::exception {
-public: 
+public:
 
 private:
 	TimerExceptionMsg msg;
@@ -44,6 +47,7 @@ public:
 
 class Timer {
 private:
+	static const std::string WHO;
 	struct timeval start_t, end_t;
 	char state;
 public:

@@ -1,0 +1,22 @@
+all: clean mainTest.out
+
+clean:
+	rm -rf *.o *.out *.log
+
+timer.o: timer.cpp
+	g++ -c -g timer.cpp -o timer.o
+
+dbwrapper.o: dbwrapper.cpp dbwrapper.h
+	g++ -c -g dbwrapper.cpp  -o dbwrapper.o
+
+symulate.o: symulate.cpp symulate.h
+	g++ -c -g symulate.cpp -o symulate.o
+
+point.o: point.cpp point.h
+	g++ -c -g point.cpp -o point.o
+
+method.o: method.cpp method.h
+	g++ -c -g method.cpp -o method.o
+
+mainTest.out: method.o point.o timer.o symulate.o dbwrapper.o
+	g++ method.o point.o timer.o symulate.o dbwrapper.o methodTestmain.cpp -o mainTest.out -l sqlite3

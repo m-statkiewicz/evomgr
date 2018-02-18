@@ -7,17 +7,23 @@
 
 #include"timer.h"
 
+const std::string Timer::WHO = "TIMER";
+
 Timer::Timer() {
+  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	state = 'n';
+	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 }
 
 Timer::Timer(bool startsAtStart) {
 	Timer();
 	if (startsAtStart == true)
-		start();
+	start();
 }
 
 Timer::~Timer() {
+	  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
+		if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 }
 
 void Timer::start() throw (TimerException) {
