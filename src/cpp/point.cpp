@@ -24,7 +24,7 @@ Point::Point(const Point * p){
 	size=p->getSize();
 	value = new float[size];
 	for (int i = 0; i<size; ++i)
-		value[i]=p->value[i];	
+		value[i]=p->value[i];
 	eval=p->eval;
 	isEvalCorrect=p->isEvalCorrect;
 };
@@ -33,7 +33,7 @@ Point::Point(const Point & p){
 	size=p.getSize();
 	value = new float[size];
 	for (int i = 0; i<size; ++i)
-		value[i]=p.value[i];	
+		value[i]=p.value[i];
 	eval=p.eval;
 	isEvalCorrect=p.isEvalCorrect;
 };
@@ -50,7 +50,7 @@ float Point::getCoord(int i) const{
     // TODO throw exception in case of i>=size
     return value[i];
 }
-	
+
 void Point::setCoord(int i, float val){
     // TODO throw exception in case of i>=size
     this->value[i]=val;
@@ -60,7 +60,7 @@ float Point::getEval() const {
     // TODO throw exception in case of isEvalCorrect=-=
     return eval;
 }
-	
+
 void Point::evaluate() {
 	eval=model_symulation(*this);
 	isEvalCorrect=1;
@@ -75,19 +75,31 @@ void Point::generateRandom(){
 bool Point::operator<(const Point& other) const {
     return getEval()<other.getEval();
 }
-    
+
+std::string Point::toString() const{
+	std::stringstream ss;
+	ss<<"[";
+	for (int i=0; i<getSize(); ++i)
+	{
+	ss<<getCoord(i);
+	if (i<getSize()-1)
+		ss<<",";
+	}
+	ss<<"]\t";
+	ss<<"E: "<<getEval();
+	return ss.str();
+};
+
 std::ostream& operator<< (std::ostream &os, Point & p){
-//	os<<"size="<<p.size<<"\n";	
+//	os<<"size="<<p.size<<"\n";
 	os<<"values=[";
 	for (int i=0; i<p.getSize(); ++i)
 	{
 	os<<p.getCoord(i);
-	if (i<p.getSize()-1) 
+	if (i<p.getSize()-1)
 		os<<",";
 	}
 	os<<"]\n";
 	os<<"eval="<<p.getEval()<<"\n";
 	return os;
 };
-
-

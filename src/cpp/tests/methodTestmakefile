@@ -1,0 +1,19 @@
+all: clean mainTest.out
+
+clean:
+	rm -rf *.o *.out *.log
+
+symulate.o: symulate.cpp symulate.h
+	g++ -c -g symulate.cpp -o symulate.o
+
+timer.o: timer.cpp
+	g++ -c -g timer.cpp -o timer.o
+
+point.o: point.cpp point.h
+	g++ -c -g point.cpp -o point.o
+
+method.o: method.cpp method.h
+	g++ -c -g method.cpp -o method.o
+
+mainTest.out: method.o point.o timer.o symulate.o
+	g++ method.o point.o timer.o symulate.o methodTestmain.cpp -o mainTest.out

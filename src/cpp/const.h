@@ -3,6 +3,8 @@
 
 // additional outputs
 #define DEBUG_MODE 1
+#define LOG_MODE 1
+#define DB_MODE 0
 
 // ziarno do generowania danych poczatkowych
 #define SEED 5779
@@ -14,11 +16,11 @@
 #define STATIC  1
 #define DYNAMIC 2
 
-//Wybór funkcji
+//Wybï¿½r funkcji
 #define MODEL SIMPLE
 
 //Parametry sieci neuronowej
-#define K 6 // liczba neuronów ukrytych
+#define K 6 // liczba neuronï¿½w ukrytych
 
 //Watki openMP
 #define OMP_THREADS 2
@@ -28,7 +30,7 @@
 
 #define TESTS_DB "/tmp/tests.db"
 
-#if (MODEL == STATIC) 
+#if (MODEL == STATIC)
 	#define POINT_SIZE (5*K+1)
 #elif (MODEL == DYNAMIC)
 	#define POINT_SIZE (6*K+1)
