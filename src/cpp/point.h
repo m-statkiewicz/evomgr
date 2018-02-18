@@ -5,15 +5,11 @@
 #ifndef POINT
 #define POINT
 
-#include<cstdlib>
-#include<iostream>
-#include<sstream>
-
-#define RADIUS 2
-#define PRECISION 100000
+#include"const.h"
 
 class Point {
 protected:
+	static const std::string WHO;
 	int size;
 	float* value;
 	float eval;

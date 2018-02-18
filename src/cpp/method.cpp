@@ -19,7 +19,7 @@ Method::Method(
   int iterationsNumber,
   int randomSeed
 ) {
-  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tMethod constructor.\n";};
+  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
   this->startTime = timer.currentDateTime();
   this->methodName = methodName;
   this->modelName = modelName;
@@ -42,16 +42,16 @@ Method::Method(
     std::string log_file_name = this->methodName+this->startTime+".log";
     log.open(log_file_name.c_str(), std::ios::out);
   };
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tMethod constructor.\n";};
+  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 
 };
 
 Method::~Method(){
-  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tMethod destructor.\n";};
+  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
   if (LOG_MODE) {
     log.close();
   };
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tMethod destructor.\n";};
+  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 };
 
 std::string Method::getMethodName () const {return methodName;};
@@ -100,12 +100,27 @@ Point Method::optimize(const std::vector<Point>& initialPoints) const {
     return initialPoints[min];
 };
 
-void Method::showResult () const {std::cout<<toString()<<"\n";};
-void Method::logResult () {log<<toString()<<"\n";};
-void Method::dbResult () const {};
-void Method::showIteration () const {};
-void Method::logIteration () {};
-void Method::dbIteration () const {};
+void Method::showResult () const {
+  std::cout<<toString()<<"\n";
+};
+void Method::logResult () {
+  log<<toString()<<"\n";
+};
+void Method::dbResult () {
+db.insertHeader(getStartTime(), getMethodName(), getModelName(),
+getParam(0), getParam(1), getParam(2), getParam(3), getParam(4),
+getPopulationSize(), getIterationsNumber(), getRandomSeed(),
+getRunTime(), getBestPoint().toString(), getBestPoint().getEval());
+};
+void Method::showIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) const {
+std::cout<<"INFO:\t"<<WHO<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
+};
+void Method::logIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) {
+log<<"INFO:\t"<<WHO<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
+};
+void Method::dbIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) {
+db.insertDetail(getStartTime(), iteration, worstPopEval, bestPopEval, bestEval);
+};
 
 void Method::saveResult ()
 {
@@ -119,16 +134,16 @@ void Method::saveResult ()
     dbResult();
   };
 };
-void Method::saveIteration ()
+void Method::saveIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval)
 {
   if (DEBUG_MODE) {
-    showIteration();
+    showIteration(iteration, worstPopEval, bestPopEval, bestEval);
   };
   if (LOG_MODE) {
-    logIteration();
+    logIteration(iteration, worstPopEval, bestPopEval, bestEval);
   };
   if (DB_MODE) {
-    dbIteration();
+    dbIteration(iteration, worstPopEval, bestPopEval, bestEval);
   };
 };
 
@@ -146,7 +161,7 @@ std::string Method::toString () const {
   }
   ss<<"Results:\n";
   ss<<"\t"<<getBestPoint().toString()<<"\n";
-  ss<<"\tValue:\t\t"<<getBestPoint().getEval()<<"\n";
+  ss<<"\tValue:\t"<<getBestPoint().getEval()<<"\n";
   ss<<"\tElapsed time:\t"  <<getRunTimeString()<<" ("<<getRunTime()<<"s.). \n";
 	return ss.str();
 };

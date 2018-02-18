@@ -13,7 +13,7 @@ int main (int argc, char **argv){
 		"param2",	2,
 		"param3",	3,
 		"param4",	4,
-		20,
+		10,
 		1,
 		SEED);
 

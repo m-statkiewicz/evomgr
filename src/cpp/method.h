@@ -5,14 +5,9 @@
 #ifndef METHOD
 #define METHOD
 
-#include<vector>
-#include<string>
-#include<iostream>
-#include<sstream>
-#include<fstream>
-
 #include"const.h"
 #include"point.h"
+#include"dbwrapper.h"
 #include"timer.h"
 
 class Method
@@ -34,15 +29,16 @@ private:
 
 	Timer timer;
 	std::fstream log;
+  DBWrapper db;
 
 	Point optimize(const std::vector<Point>& initialPoints) const;
 
 	void showResult () const;
 	void logResult () ;
-	void dbResult () const;
-	void showIteration () const;
-	void logIteration ();
-	void dbIteration () const;
+	void dbResult () ;
+	void showIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) const;
+	void logIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
+	void dbIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
 
 
 public:
@@ -83,7 +79,7 @@ public:
 	void operator () ();
 
 	void saveResult ();
-	void saveIteration ();
+	void saveIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
 
 	friend std::ostream& operator<< (std::ostream &os, Method &d);
 };
