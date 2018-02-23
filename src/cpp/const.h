@@ -12,9 +12,11 @@
 
 
 // outputs
+#define ITERATION_LOG 1
 #define DEBUG_MODE 1
+#define MEMO_MODE 0
 #define LOG_MODE 0
-#define DB_MODE 1
+#define DB_MODE 0
 #define TESTS_DB "/tmp/tests.db"
 
 // data generation

@@ -12,7 +12,7 @@
 
 class Method
 {
-private:
+protected:
   static const std::string WHO;
 	std::string startTime;
  	std::string methodName;
@@ -31,14 +31,14 @@ private:
 	std::fstream log;
   DBWrapper db;
 
-	Point optimize(const std::vector<Point>& initialPoints) const;
+	Point optimize(const std::vector<Point>& initialPoints);
 
 	void showResult () const;
 	void logResult () ;
 	void dbResult () ;
-	void showIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) const;
-	void logIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
-	void dbIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
+	void showIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval) const;
+	void logIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval);
+	void dbIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval);
 
 
 public:
@@ -79,7 +79,7 @@ public:
 	void operator () ();
 
 	void saveResult ();
-	void saveIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval);
+	void saveIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval);
 
 	friend std::ostream& operator<< (std::ostream &os, Method &d);
 };

@@ -10,19 +10,16 @@
 class Sa : public Method
 {
 private:
-	int size;
-	float lambda;			//współczynnik zmniejszania temperatury
-	float maxTemp;
-	float minTemp;
-	int iterations;
-	std::string logfilename;
-	std::string start_time;
+  static const std::string WHO;
+	double lambda ;
+	double maxTemp;
+	double minTemp;
+	Point optimize(const std::vector<Point>& initialPoints);
 
 public:
-	std::string name;
-	Sa (float lambda, float maxTemp, float minTemp, int max_iterations, std::string start_time);
-	Point operator () (const std::vector<Point*>& initialPoints);
-	friend std::ostream& operator<< (std::ostream &os, Sa &s);
+	Sa (double lambda, double maxTemp, double minTemp, int max_iterations, int populationSize);
+	void operator () (); 
+
 };
 
 #endif

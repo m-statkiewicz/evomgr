@@ -4,50 +4,50 @@
 const std::string Point::WHO = "POINT";
 
 Point::Point(){
-	if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	size=0;
 	value = NULL;
 	isEvalCorrect=0;
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 };
 
 Point::Point(int size){
-	if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	this->size=size;
 	value = new float[size];
 	for (int i = 0; i<size; ++i)
 		value[i]=0;
 	isEvalCorrect=0;
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 };
 
 
 Point::Point(const Point * p){
-	if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	size=p->getSize();
 	value = new float[size];
 	for (int i = 0; i<size; ++i)
 		value[i]=p->value[i];
 	eval=p->eval;
 	isEvalCorrect=p->isEvalCorrect;
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 };
 
 Point::Point(const Point & p){
-	if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	size=p.getSize();
 	value = new float[size];
 	for (int i = 0; i<size; ++i)
 		value[i]=p.value[i];
 	eval=p.eval;
 	isEvalCorrect=p.isEvalCorrect;
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 };
 
 Point::~Point(){
-	if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
+	if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
 	delete value;
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 }
 
 int Point::getSize() const{

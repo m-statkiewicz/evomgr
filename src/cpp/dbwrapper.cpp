@@ -21,16 +21,16 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
 }
 
 DBWrapper::DBWrapper() {
-  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+  if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
   sqlite3_open(TESTS_DB, &db);
   if (!checkDB()) generateDB();
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+  if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 }
 
 DBWrapper::~DBWrapper() {
-if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
+if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
   sqlite3_close(db);
-if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
+if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 }
 
 void DBWrapper::execute(std::string sql) {
