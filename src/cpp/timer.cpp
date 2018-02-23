@@ -10,9 +10,9 @@
 const std::string Timer::WHO = "TIMER";
 
 Timer::Timer() {
-  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+  if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
 	state = 'n';
-	if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+	if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 }
 
 Timer::Timer(bool startsAtStart) {
@@ -22,8 +22,8 @@ Timer::Timer(bool startsAtStart) {
 }
 
 Timer::~Timer() {
-	  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
-		if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
+	  if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tDestructor.\n";};
+		if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 }
 
 void Timer::start() throw (TimerException) {

@@ -19,7 +19,7 @@ Method::Method(
   int iterationsNumber,
   int randomSeed
 ) {
-  if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
+  if (MEMO_MODE) {std::cout<<"START:\t"<<WHO<<"\tConstructor.\n";};
   this->startTime = timer.currentDateTime();
   this->methodName = methodName;
   this->modelName = modelName;
@@ -42,16 +42,16 @@ Method::Method(
     std::string log_file_name = this->methodName+this->startTime+".log";
     log.open(log_file_name.c_str(), std::ios::out);
   };
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
+  if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tConstructor.\n";};
 
 };
 
 Method::~Method(){
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
+  if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
   if (LOG_MODE) {
     log.close();
   };
-  if (DEBUG_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
+  if (MEMO_MODE) {std::cout<<"END:\t"<<WHO<<"\tDestructor.\n";};
 };
 
 std::string Method::getMethodName () const {return methodName;};
@@ -87,7 +87,7 @@ void Method::operator () () {
     runTimeString = timer.deltaToString();
 };
 
-Point Method::optimize(const std::vector<Point>& initialPoints) const {
+Point Method::optimize(const std::vector<Point>& initialPoints) {
     if (DEBUG_MODE) {std::cout<<"START:\t"<<WHO<<"\tOptimize.\n";};
     int min=0;
     for (int i=1; i<initialPoints.size(); ++i){
@@ -112,13 +112,13 @@ getParam(0), getParam(1), getParam(2), getParam(3), getParam(4),
 getPopulationSize(), getIterationsNumber(), getRandomSeed(),
 getRunTime(), getBestPoint().toString(), getBestPoint().getEval());
 };
-void Method::showIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) const {
-std::cout<<"INFO:\t"<<WHO<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
+void Method::showIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval) const {
+std::cout<<"INFO:\t"<<who<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
 };
-void Method::logIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) {
-log<<"INFO:\t"<<WHO<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
+void Method::logIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval) {
+log<<"INFO:\t"<<who<<"\t["<<iteration<<"]\t"<<worstPopEval<<"\t"<<bestPopEval<<"\t"<<bestEval<<"\n";
 };
-void Method::dbIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval) {
+void Method::dbIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval) {
 db.insertDetail(getStartTime(), iteration, worstPopEval, bestPopEval, bestEval);
 };
 
@@ -134,16 +134,16 @@ void Method::saveResult ()
     dbResult();
   };
 };
-void Method::saveIteration (int iteration, double worstPopEval, double bestPopEval, double bestEval)
+void Method::saveIteration (std::string who, int iteration, double worstPopEval, double bestPopEval, double bestEval)
 {
   if (DEBUG_MODE) {
-    showIteration(iteration, worstPopEval, bestPopEval, bestEval);
+    showIteration(who, iteration, worstPopEval, bestPopEval, bestEval);
   };
   if (LOG_MODE) {
-    logIteration(iteration, worstPopEval, bestPopEval, bestEval);
+    logIteration(who, iteration, worstPopEval, bestPopEval, bestEval);
   };
   if (DB_MODE) {
-    dbIteration(iteration, worstPopEval, bestPopEval, bestEval);
+    dbIteration(who, iteration, worstPopEval, bestPopEval, bestEval);
   };
 };
 
