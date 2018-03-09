@@ -1,0 +1,31 @@
+all: clean mpl.out test
+
+test:
+	./mpl.out > mpl.log
+
+clean:
+	rm -rf *.o *.out *.log
+
+timer.o: timer.cpp
+	g++ -c -g timer.cpp -o timer.o
+
+dbwrapper.o: dbwrapper.cpp dbwrapper.h
+	g++ -c -g dbwrapper.cpp  -o dbwrapper.o
+
+symulate.o: symulate.cpp symulate.h
+	g++ -c -g symulate.cpp -o symulate.o
+
+point.o: point.cpp point.h
+	g++ -c -g point.cpp -o point.o
+
+method.o: method.cpp method.h
+	g++ -c -g method.cpp -o method.o
+
+mpl.o: mpl.cpp mpl.h
+	g++ -c -g mpl.cpp
+
+individual.o: individual.cpp individual.h
+	g++ -c -g individual.cpp -o individual.o
+
+mpl.out: method.o point.o individual.o timer.o symulate.o dbwrapper.o mpl.o
+	g++ method.o point.o individual.o timer.o symulate.o dbwrapper.o mpl.o mpl_main.cpp -o mpl.out -l sqlite3

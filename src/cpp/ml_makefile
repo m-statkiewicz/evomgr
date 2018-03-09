@@ -1,0 +1,31 @@
+all: clean ml.out test
+
+test:
+	./ml.out > ml.log
+
+clean:
+	rm -rf *.o *.out *.log
+
+timer.o: timer.cpp
+	g++ -c -g timer.cpp -o timer.o
+
+dbwrapper.o: dbwrapper.cpp dbwrapper.h
+	g++ -c -g dbwrapper.cpp  -o dbwrapper.o
+
+symulate.o: symulate.cpp symulate.h
+	g++ -c -g symulate.cpp -o symulate.o
+
+point.o: point.cpp point.h
+	g++ -c -g point.cpp -o point.o
+
+method.o: method.cpp method.h
+	g++ -c -g method.cpp -o method.o
+
+ml.o: ml.cpp ml.h
+	g++ -c -g ml.cpp
+
+individual.o: individual.cpp individual.h
+	g++ -c -g individual.cpp -o individual.o
+
+ml.out: method.o point.o individual.o timer.o symulate.o dbwrapper.o ml.o
+	g++ method.o point.o individual.o timer.o symulate.o dbwrapper.o ml.o ml_main.cpp -o ml.out -l sqlite3
